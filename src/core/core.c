@@ -38,3 +38,11 @@ int core_log(FILE *fout) {
     }
     return 0;
 }
+
+int core_idx_to_str(unsigned long idx, const char **out) {
+    if (idx >= size) {
+        return 1;
+    }
+    *out = adjacency_list[idx].name;
+    return 0;
+}

@@ -18,6 +18,5 @@ double calc_dist(double lon1, double lat1, double lon2, double lat2) {
     double y = y1 - y2;
     double z = z1 - z2;
     double sl = x * x + y * y + z * z;
-    printf("%lf\n", lat1);
     return acos((2 - sl) / 2) * 6378;
 }
