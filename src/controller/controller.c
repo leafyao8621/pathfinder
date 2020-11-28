@@ -2,8 +2,7 @@
 #include "../core/core.h"
 #include "controller.h"
 
-static long from, to;
-static unsigned long size;
+static long from, to, size;
 static const char *from_str, *to_str;
 static int mode, dist;
 
@@ -11,7 +10,7 @@ void controller_initialize(void) {
     initscr();
     keypad(stdscr, TRUE);
     noecho();
-    core_initialize(&size);
+    core_initialize((long*)&size);
     from = 0;
     core_idx_to_str(from, &from_str);
     to = 1;
