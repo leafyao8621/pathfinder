@@ -24,6 +24,7 @@ int core_finalize(void) {
     struct List *iter = adjacency_list;
     for (unsigned long i = 0; i < size; ++i, list_finalize(iter++));
     free(adjacency_list);
+    return 0;
 }
 
 int core_log(FILE *fout) {
@@ -125,6 +126,7 @@ int core_find_path(unsigned long from,
 
 int core_free_path(unsigned long *path) {
     free(path);
+    return 0;
 }
 
 int core_log_path(unsigned long steps, unsigned long *path, FILE *fout) {
@@ -137,4 +139,5 @@ int core_log_path(unsigned long steps, unsigned long *path, FILE *fout) {
         }
         fputc(10, fout);
     }
+    return 0;
 }
