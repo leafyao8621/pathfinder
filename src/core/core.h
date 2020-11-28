@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-int core_initialize(void);
+int core_initialize(unsigned long *size_out);
 int core_finalize(void);
 int core_idx_to_str(unsigned long idx, const char **out);
 int core_find_path(unsigned long from,

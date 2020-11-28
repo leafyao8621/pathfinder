@@ -6,12 +6,16 @@ static unsigned long size;
 static double inf;
 static struct List *adjacency_list;
 
-int core_initialize(void) {
+int core_initialize(unsigned long *size_out) {
+    if (!size_out) {
+        return 1;
+    }
     connector_initialize();
     int ret = connector_read(&size, &inf, &adjacency_list);
     if (ret) {
-        return 1;
+        return 2;
     }
+    *size_out = size;
     return 0;
 }
 
@@ -125,8 +129,8 @@ int core_free_path(unsigned long *path) {
 
 int core_log_path(unsigned long steps, unsigned long *path, FILE *fout) {
     const char *buf;
-    for (unsigned long i = 0, *iter = path; i < steps; ++i) {
-        core_idx_to_str(path[i], &buf);
+    for (unsigned long i = 0, *iter = path; i < steps; ++i, ++iter) {
+        core_idx_to_str(*iter, &buf);
         fprintf(fout, "%s", buf);
         if (i < steps - 1) {
             fprintf(fout, "%s", "->");
