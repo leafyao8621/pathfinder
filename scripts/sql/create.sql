@@ -9,8 +9,12 @@ CREATE TABLE cost (
     to_city TEXT,
     cost REAL NOT NULL,
     PRIMARY KEY (from_city, to_city),
-    FOREIGN KEY (from_city) REFERENCES cities (city),
+    FOREIGN KEY (from_city) REFERENCES cities (city)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
     FOREIGN KEY (to_city) REFERENCES cities (city)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
 
 CREATE VIEW adjacency_list AS

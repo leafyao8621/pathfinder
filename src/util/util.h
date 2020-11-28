@@ -13,6 +13,7 @@ struct ListNode {
 struct List {
     char *name, visited;
     double longitude, latitude, cur;
+    unsigned long prev, next;
     struct ListNode *head, *tail;
 };
 
@@ -44,5 +45,6 @@ int heap_push_back(struct Heap *heap,
                    double key,
                    unsigned long idx);
 int heap_pop(struct Heap *heap);
+int heap_finalize(struct Heap *heap);
 
 #endif

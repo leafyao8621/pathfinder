@@ -2,6 +2,7 @@
 #include <sqlite3.h>
 #include "connector.h"
 
+static double inf_dist_buf, inf_cost_buf;
 static sqlite3 *conn;
 
 int connector_initialize(void) {
@@ -51,11 +52,15 @@ int adjacency_list_handler(void *out, int ncol, char **data, char **cols) {
                        cost)) {
         return 1;
     }
+    inf_dist_buf += dist;
+    inf_cost_buf += cost;
     return 0;
 }
 
-int connector_read(unsigned long *size, struct List **adjacency_list) {
-    if (!adjacency_list || !size) {
+int connector_read(unsigned long *size,
+                   double *inf,
+                   struct List **adjacency_list) {
+    if (!adjacency_list || !size || !inf) {
         return 1;
     }
     unsigned long nrows = 0;
@@ -67,7 +72,7 @@ int connector_read(unsigned long *size, struct List **adjacency_list) {
     *size = nrows;
     *adjacency_list = malloc(sizeof(struct List) * nrows);
     struct List *adjacency_list_iter = *adjacency_list;
-    if (!(*adjacency_list)) {
+    if (!(adjacency_list_iter)) {
         return 3;
     }
     ret = sqlite3_exec(conn, "SELECT * FROM cities",
@@ -75,10 +80,13 @@ int connector_read(unsigned long *size, struct List **adjacency_list) {
     if (ret) {
         return 4;
     }
+    inf_dist_buf = 0;
+    inf_cost_buf = 0;
     ret = sqlite3_exec(conn, "SELECT * FROM adjacency_list",
                        adjacency_list_handler, *adjacency_list, 0);
     if (ret) {
-        return 4;
+        return 5;
     }
+    *inf = inf_dist_buf > inf_cost_buf ? inf_dist_buf : inf_cost_buf;
     return 0;
 }

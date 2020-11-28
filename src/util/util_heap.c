@@ -106,3 +106,11 @@ int heap_pop(struct Heap *heap) {
     --(heap->size);
     return 0;
 }
+
+int heap_finalize(struct Heap *heap) {
+    if (!heap) {
+        return 1;
+    }
+    for (; heap->size; heap_pop(heap));
+    return 0;
+}
