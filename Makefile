@@ -4,7 +4,7 @@ OBJ = $(SRC:.c=.o)
 BIN = pf
 
 %.o: %.c
-	$(CC) -g -c $< -o $@
+	$(CC) -O3 -c $< -o $@
 
 $(BIN): $(OBJ)
 	$(CC) $(OBJ) -o $(BIN) -lsqlite3 -lncurses -lm
