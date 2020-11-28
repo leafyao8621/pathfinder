@@ -95,7 +95,6 @@ int core_find_path(unsigned long from,
         }
     }
     heap_finalize(&rem);
-    // printf("%lf\n", adjacency_list[to].cur);
     *val = adjacency_list[to].cur;
     if (*val == inf) {
         return -1;
