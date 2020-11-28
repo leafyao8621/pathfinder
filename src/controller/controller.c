@@ -79,7 +79,7 @@ char controller_handle(void) {
         clear();
         mvprintw(0, 0, "From:%35s", from_str);
         mvprintw(1, 0, "To:%37s", to_str);
-        mvprintw(2, 0, "Criterium:%30s", "Cost");
+        mvprintw(2, 0, "Criterium:%30s", dist ? "Distance" : "Cost");
         if (!ret) {
             mvprintw(4, 0, dist ? "Distance:%29.0lfkm" : "Cost:$%34.2lf", val);
             mvprintw(5, 0, "Path:");
