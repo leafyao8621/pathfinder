@@ -1,4 +1,3 @@
 *.o
 pf
-*.db
 backup
