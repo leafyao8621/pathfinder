@@ -8,10 +8,36 @@ int main(void) {
     double val;
     unsigned long steps;
     unsigned long *path;
-    core_find_path(1, 2, 0, &val, &steps, &path);
-    printf("val: %lf\nsteps: %lu\n", val, steps);
-    core_log_path(steps, path, stdout);
-    core_free_path(path);
+    int ret = core_find_path(1, 2, 0, &val, &steps, &path);
+    if (!ret) {
+        printf("val: %lf\nsteps: %lu\n", val, steps);
+        core_log_path(steps, path, stdout);
+        core_free_path(path);
+    } else {
+        if (ret < 0) {
+            const char *from, *to;
+            core_idx_to_str(4, &from);
+            core_idx_to_str(2, &to);
+            printf("no path from %s to %s\n", from, to);
+        } else {
+            puts("error");
+        }
+    }
+    ret = core_find_path(4, 2, 0, &val, &steps, &path);
+    if (!ret) {
+        printf("val: %lf\nsteps: %lu\n", val, steps);
+        core_log_path(steps, path, stdout);
+        core_free_path(path);
+    } else {
+        if (ret < 0) {
+            const char *from, *to;
+            core_idx_to_str(4, &from);
+            core_idx_to_str(2, &to);
+            printf("no path from %s to %s\n", from, to);
+        } else {
+            puts("error");
+        }
+    }
     core_finalize();
     // struct Heap heap;
     // heap_initialize(&heap);
