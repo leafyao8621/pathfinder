@@ -15,6 +15,7 @@ int connector_initialize(void) {
 
 int connector_finalize(void) {
     sqlite3_close(conn);
+    return 0;
 }
 
 int row_cnt_handler(void *out, int ncol, char **data, char **cols) {
